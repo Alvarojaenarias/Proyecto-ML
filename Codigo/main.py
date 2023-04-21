@@ -1,18 +1,7 @@
 import streamlit as st
 from PIL import Image
 import funciones as ft
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-mpl.rc('axes', labelsize=14)
-mpl.rc('xtick', labelsize=12)
-mpl.rc('ytick', labelsize=12)
 
-import warnings
-warnings.filterwarnings("ignore")
-warnings.filterwarnings(action="ignore",category=DeprecationWarning)
-warnings.filterwarnings(action="ignore",category=FutureWarning)
-
-plt.style.use("fivethirtyeight")
 
 ft.config_page()
 

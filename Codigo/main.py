@@ -1,37 +1,7 @@
-import pandas as pd
 import streamlit as st
 from PIL import Image
 import funciones as ft
-import json
 import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
-from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import VotingClassifier
-from sklearn.ensemble import BaggingClassifier
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.ensemble import GradientBoostingClassifier
-from xgboost import XGBClassifier
-from sklearn.linear_model import Ridge
-from sklearn.linear_model import Lasso
-from sklearn.linear_model import ElasticNet
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import r2_score
-from sklearn.ensemble import GradientBoostingRegressor
-import pickle
-from sklearn.utils import shuffle
-import joblib  
 
 from sklearn.model_selection import cross_val_score
 import matplotlib as mpl

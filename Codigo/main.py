@@ -2,7 +2,6 @@ import pandas as pd
 import streamlit as st
 from PIL import Image
 import funciones as ft
-from streamlit_lottie import st_lottie
 import json
 import pandas as pd
 import numpy as np
@@ -179,6 +178,4 @@ elif menu == 'ML: Conclusiones predicción':
 else:
     st.header('Conclusiones Visualizaciones 2016-2022 en Twitch')
     ft.conclusiones()
-    with open("ML/imagen/gift 2.json") as source:
-        animation = json.load(source)
-    st_lottie(animation, height=1000, width=1000)
+   

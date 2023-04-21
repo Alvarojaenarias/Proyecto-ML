@@ -5,7 +5,6 @@ import funciones as ft
 import json
 import pandas as pd
 import numpy as np
-import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
@@ -46,7 +45,6 @@ warnings.filterwarnings("ignore")
 warnings.filterwarnings(action="ignore",category=DeprecationWarning)
 warnings.filterwarnings(action="ignore",category=FutureWarning)
 
-sns.set_style('whitegrid')
 plt.style.use("fivethirtyeight")
 
 ft.config_page()

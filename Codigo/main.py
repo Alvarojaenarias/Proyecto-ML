@@ -1,9 +1,6 @@
 import streamlit as st
 from PIL import Image
 import funciones as ft
-import pandas as pd
-
-from sklearn.model_selection import cross_val_score
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 mpl.rc('axes', labelsize=14)

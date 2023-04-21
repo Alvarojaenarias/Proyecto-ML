@@ -1,0 +1,716 @@
+import pandas as pd
+import numpy as np
+import streamlit as st
+from streamlit_lottie import st_lottie
+import json
+from PIL import Image
+import plotly.express as px
+import plotly.graph_objs as go
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+from sklearn.model_selection import GridSearchCV
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import VotingClassifier
+from sklearn.ensemble import BaggingClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from xgboost import XGBClassifier
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import r2_score
+from sklearn.ensemble import GradientBoostingRegressor
+import pickle
+from sklearn.utils import shuffle
+import joblib  
+
+from sklearn.model_selection import cross_val_score
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+mpl.rc('axes', labelsize=14)
+mpl.rc('xtick', labelsize=12)
+mpl.rc('ytick', labelsize=12)
+
+
+import warnings
+warnings.filterwarnings("ignore")
+warnings.filterwarnings(action="ignore",category=DeprecationWarning)
+warnings.filterwarnings(action="ignore",category=FutureWarning)
+
+sns.set_style('whitegrid')
+plt.style.use("fivethirtyeight")
+
+def config_page():
+    st.set_page_config(page_title = "EDA ALVARO JAEN", page_icon=":shark:", layout="wide")
+
+
+def home():
+    st.title(":video_game:_:blue[VISUALIZACIONES DE LOS CANALES DE VIDEOJUEGOS EN LA PLATAFORMA TWITCH]_:video_game:")
+    
+    img =Image.open("ML/imagen/introduccion.jpeg")
+    st.image(img,use_column_width="always")
+    
+    st.subheader(':red[Introducción]')
+    st.markdown('''
+    Este EDA comienzacon la recopilacion de datos de las visualizaciones desde 2016 hasta principio de 2023 de los principales canales
+    de de videojuegos que hay en la plataforma Twitch para poder recopilar informacion y elaborar nuestras preguntas.
+    ''')
+    
+    st.subheader(':green[¿QUÉ ES TWITCH?]')
+    st.markdown('''
+    Twitch es una plataforma estadounidense perteneciente a la empresa Amazon, Inc., que permite realizar transmisiones en vivo
+    ''')
+    with st.expander("CUESTION PRINCIPAL:sparkles:"):
+        st.write('''
+    ¿Será comparable la final de un E-Sport a un evento deportivo como la final del mundial?
+    ''')
+    with st.expander("CUESTIONES SECUNDARIAS:question:"):
+        st.markdown("""
+                * ¿Cuáles son los juegos mas visualizados cada año?¿Y en estos 7 años? \n
+                * La tendencia de visualizaciones, ¿Aumenta o disminuye con los años?¿Ha afectado el covid a la visualizaciones en Twitch?\n
+                
+                Cuestiones interesantes surgidas tras la obtención de los datos:
+                * ¿Cual es la variedad de juego más visualizado en estos 7 años? \n
+                * ¿Oscilan las visualizaciones según el mes del año?\n
+                """)
+    with st.expander("MACHINE LEARNING: PREDICCIONES"):
+        st.markdown("""
+                * Pongámonos que somos una empresa y queremos invertir en poner publicidad de nuestra empresa en Twitch y tenemos que elegir 
+                 en qué videojuegos son los mejores para ello. Tomamos las siguientes condiciones: \n
+                * 1)Para el comienzo del año 2024 debe estar entre las 200 más visualizadas en todo el mundo.
+                * 2)La tendencia de visualizaciones, debe aumentar respecto al año anterior.\n
+                * 3)Será interesante predecir cuales son los juegos que más vayan a crecer.\n
+                """)
+def juegos_vistos_2016(): 
+    df_juegos_2016 = pd.read_csv('ML/CSV/juegos mas jugados al año/juegos2016.csv')
+    pie1 = df_juegos_2016['Hours_watched']
+    labels = df_juegos_2016["Game"]
+         
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Juegos más vistos en 2016",
+        "hoverinfo":"label+percent+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Juegos más vistos en 2016",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
+def juegos_vistos_2017(): 
+    df_juegos_2017 = pd.read_csv('ML/CSV/juegos mas jugados al año/juegos2017.csv')
+    pie1 = df_juegos_2017['Hours_watched']
+    labels = df_juegos_2017["Game"]
+        
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Juegos más vistos en 2017",
+        "hoverinfo":"label+percent+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Juegos más vistos en 2017",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
+def juegos_vistos_2018(): 
+    df_juegos_2018 = pd.read_csv('ML/CSV/juegos mas jugados al año/juegos2018.csv')
+    pie1 = df_juegos_2018['Hours_watched']
+    labels = df_juegos_2018["Game"]
+         
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Juegos más vistos en 2018",
+        "hoverinfo":"label+percent+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Juegos más vistos en 2018",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
+def juegos_vistos_2019(): 
+    df_juegos_2019 = pd.read_csv('ML/CSV/juegos mas jugados al año/juegos2019.csv')
+    pie1 = df_juegos_2019['Hours_watched']
+    labels = df_juegos_2019["Game"]
+         
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Juegos más vistos en 2019",
+        "hoverinfo":"label+percent+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Juegos más vistos en 2019",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
+def juegos_vistos_2020(): 
+    df_juegos_2020 = pd.read_csv('ML/CSV/juegos mas jugados al año/juegos2020.csv')
+    pie1 = df_juegos_2020['Hours_watched']
+    labels = df_juegos_2020["Game"]
+         
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Juegos más vistos en 2020",
+        "hoverinfo":"label+percent+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Juegos más vistos en 2020",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
+def juegos_vistos_2021(): 
+    df_juegos_2021 = pd.read_csv('ML/CSV/juegos mas jugados al año/juegos2021.csv')
+    pie1 = df_juegos_2021['Hours_watched']
+    labels = df_juegos_2021["Game"]
+         
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Juegos más vistos en 2021",
+        "hoverinfo":"label+percent+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Juegos más vistos en 2021",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
+def juegos_vistos_2022(): 
+    df_juegos_2022 = pd.read_csv('ML/CSV/juegos mas jugados al año/juegos2022.csv')
+    pie1 = df_juegos_2022['Hours_watched']
+    labels = df_juegos_2022["Game"]
+        
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Juegos más vistos en 2022",
+        "hoverinfo":"label+percent+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Juegos más vistos en 2022",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
+def juegos_vistos_total():
+    
+    df_lol = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/League of legends.csv')
+    df_cod = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/Call of Duty Warzone.csv')
+    df_counter = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/Counter Strike Global Offensive.csv')
+    df_dota2 = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/Dota 2.csv')
+    df_Fortnite = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/Fortnite.csv')
+    df_gta = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/Grand Theft Auto V.csv')
+    df_hearstone = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/Hearstone.csv')
+    df_minecraft = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/Minecraft.csv')
+    df_wow = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/World of Warcraft.csv')
+    df_valorant = pd.read_csv('ML/CSV/juegos mas jugados en 7 años/Valorant.csv')
+
+    lol = go.Scatter(
+                    x = df_lol["Year"],
+                    y = df_lol['Hours_watched'],
+                    name = 'League of Legends',
+                    mode= 'lines',
+                    marker = dict(color = 'rgba(16, 112, 2, 0.8)'),
+                    text = "League of Legends")
+
+    counter = go.Scatter(
+                    x = df_counter["Year"],
+                    y = df_counter['Hours_watched'],
+                    name = 'Counter Strike Global Offensive',
+                    mode= 'lines',
+                    marker = dict(color = 'red'),
+                    text = ['Counter Strike Global Offensive'])
+    cod = go.Scatter(
+                    x = df_cod["Year"],
+                    y = df_cod['Hours_watched'],
+                    name = 'Call of Duty Warzone',
+                    mode= 'lines',
+                    marker = dict(color = 'rgba(55, 128, 255, 0.8)'),
+                    text = ['Call of Duty Warzone'])
+    dota2 = go.Scatter(
+                    x = df_dota2["Year"],
+                    y = df_dota2['Hours_watched'],
+                    name = 'Dota 2',
+                    mode= 'lines',
+                    marker = dict(color = 'rgba(255, 128, 2, 0.8)'),
+                    text = ['Dota2'])
+    Fortnite = go.Scatter(
+                    x = df_Fortnite["Year"],
+                    y = df_Fortnite['Hours_watched'],
+                    name = 'Fortnite',
+                    mode= 'lines',
+                    marker = dict(color = 'rgba(0, 255, 200, 0.8)'),
+                    text = ['Fortnite'])
+    gta = go.Scatter(
+                    x = df_gta["Year"],
+                    y = df_gta['Hours_watched'],
+                    name = 'Grand Theft Auto V',
+                    mode= 'lines',
+                    marker = dict(color = 'pink'),
+                    text = ['Grand Theft Auto V'])
+    hearstone = go.Scatter(
+                    x = df_hearstone["Year"],
+                    y = df_hearstone['Hours_watched'],
+                    name = 'Hearstone',
+                    mode= 'lines',
+                    marker = dict(color = 'rgba(255, 255, 128, 1.5)'),
+                    text = ['Hearstone'])
+    minecraft = go.Scatter(
+                    x = df_minecraft["Year"],
+                    y = df_minecraft['Hours_watched'],
+                    name = 'Minecraft',
+                    mode= 'lines',
+                    marker = dict(color = 'rgba(171, 50, 96, 0.6)'),
+                    text = ['Minecraft'])
+    wow = go.Scatter(
+                    x = df_wow["Year"],
+                    y = df_wow['Hours_watched'],
+                    name = 'World of Warcraft',
+                    mode= 'lines',
+                    marker = dict(color = 'brown'),
+                    text = ['World of Warcraft'])
+    valorant = go.Scatter(
+                    x = df_valorant["Year"],
+                    y = df_valorant['Hours_watched'],
+                    name = 'Valorant',
+                    mode= 'lines',
+                    marker = dict(color = 'rgba(248, 248, 255)'),
+                    text = ['Valorant'])
+    
+    data = [lol,counter,cod,dota2,Fortnite,hearstone,minecraft,wow,gta,valorant]
+
+    layout = dict(title = 'JUEGOS MAS VISUALIZADOS EN 7 AÑOS (DATOS DE 2016-2022)',
+             xaxis= dict(title= 'YEARS',ticklen=5, ticks="outside", tickson="boundaries",), 
+             yaxis= dict(title= 'HORAS VISUALIZADAS',ticklen=5, ticks="outside", tickson="boundaries",)
+           )
+    fig = go.Figure(data = data, layout=layout)
+    return fig
+
+def tipo_juegos(): 
+    
+    df_tipo_juegos = pd.read_csv('ML/CSV/tipo de juego en 7 años/tipo juegos en 7 años.csv')
+    
+    Data = go.Bar(x = df_tipo_juegos["Tipo de juego"],
+                y = df_tipo_juegos['Recuento'],
+                name = 'Tipos de juegos más populares en 7 años',
+                marker = dict(color = 'Orange',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_tipo_juegos["Tipo de juego"])
+    layout  = {
+    'xaxis': {'title': 'TIPO DE JUEGO'},
+    'yaxis': {'title': 'ACUMULADO EN 7 AÑOS'},
+    'barmode': 'group',
+    'title': 'TIPO DE JUEGOS MAS SEGUIDOS EN 7 AÑOS (DATOS DE 2016-2022)'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+
+def viewers(): 
+    df_viewer_total = pd.read_csv('ML/CSV/total viewer 7 años/total viewers 7 años.csv')
+    data = go.Scatter(
+                    x = df_viewer_total["Year"],
+                    y = df_viewer_total['Hours_watched'],
+                    name = 'TOTAL HORAS VISUALIZADAS EN CANALES DE JUEGOS EN 7 AÑOS',
+                    mode= 'lines+markers',
+                    marker = dict(color = 'green'),
+                    text = df_viewer_total["Year"])
+    layout = dict(title = 'TOTAL HORAS VISUALIZADAS EN CANALES DE JUEGOS EN 7 AÑOS (DATOS DE 2016-2022)',
+             xaxis= dict(title= 'YEAR',ticklen=5, ticks="outside", tickson="boundaries",), 
+           )
+
+    fig = go.Figure(data = data, layout=layout)
+    
+    return fig    
+    
+def viewer_mes(): 
+    df_viewer_mes = pd.read_csv('ML/CSV/viewer por mes/visualizaciones por mes.csv')
+    
+    Data = go.Bar(x = df_viewer_mes["Month"],
+                y = df_viewer_mes['Hours_watched'],
+                name = 'Diferenciacion de visualizaciones por cada mes',
+                marker = dict(color = 'blue',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = ["Enero","Febrero","MArzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"])
+    layout  = {
+    'xaxis': {'title': 'MES'},
+    'yaxis': {'title': 'HORAS/VISUALIZADAS'},
+    'barmode': 'group',
+    'title': 'HORAS VISUALIZADA DIFERENCIADAS POR MES (DATOS DE 2016-2022)'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+
+    return fig
+
+def pico_viewer(): 
+    
+    df_pico_viewer = pd.read_csv('ML/CSV/pico viewer en 7 años/pico visualizaciones en 7 años.csv')
+    
+    Data = go.Bar(x = df_pico_viewer["Year"],
+                y = df_pico_viewer['Peak_viewers'],
+                name = 'Diferenciacion de visualizaciones por cada mes',
+                marker = dict(color = 'red',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_pico_viewer["Game"])
+    layout  = {
+    'xaxis': {'title': 'AÑO'},
+    'yaxis': {'title': 'MAXIMO HORAS/VISUALIZADAS'},
+    'barmode': 'group',
+    'title': 'MAXIMA AUDIENCIA POR AÑO (DATOS DE 2016-2022)'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+def comparativa(): 
+    df_twitch = pd.read_csv('ML/CSV/pico viewer en 7 años/twitch.csv')
+    df_2022_españa = pd.read_csv('ML/CSV/pico viewer en 7 años/mundial 2022 españa.csv')
+    df_2022_francia= pd.read_csv('ML/CSV/pico viewer en 7 años/mundial 2022 francia.csv')
+    df_2010 = pd.read_csv('ML/CSV/pico viewer en 7 años/mundial 2010.csv')
+    
+    españa_2022 = go.Bar(x = df_2022_españa["Game"],
+                y = df_2022_españa['Peak_viewers'],
+                name = 'Final mundial 2022 España',
+                marker = dict(color = 'yellow',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_2022_españa["Game"])
+    twitch = go.Bar(x = df_twitch["Game"],
+                y = df_twitch['Peak_viewers'],
+                name = 'Final mundial Lol 2021',
+                marker = dict(color = 'green',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_twitch["Game"])
+    españa_2010 = go.Bar(x = df_2010["Game"],
+                y = df_2010['Peak_viewers'],
+                name = 'Final mundial 2010',
+                marker = dict(color = 'red',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_2010["Game"])
+    francia_2022 = go.Bar(x = df_2022_francia["Game"],
+                y = df_2022_francia['Peak_viewers'],
+                name = 'Final mundial 2022 Francia',
+                marker = dict(color = 'blue',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_2022_francia["Game"])
+    layout  = {
+    'xaxis': {'title': 'EVENTO'},
+    'yaxis': {'title': 'MAXIMa AUDIENCIA HORAS/VISUALIZADAS'},
+    'barmode': 'group',
+    'title': 'MAXIMA AUDIENCIA TWITCH VS EVENTOS FUTBOLISTICOS'
+    }
+    data=[españa_2022,twitch,españa_2010,francia_2022]
+    fig = go.Figure(data = data, layout = layout)
+    
+    return fig
+
+def binaria_inicial():
+    df_binaria_inicial = pd.read_csv('ML/CSV/Clasificacion/Recuento 0 y 1.csv')
+    pie1 = df_binaria_inicial['Target']
+    labels = df_binaria_inicial['Clas. Binaria']
+         
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Recuento 0 y 1 dataset inicial",
+        "hoverinfo":"label+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Recuento 0 y 1 dataset inicial",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
+
+def feature_importance_clas():
+    df_feature_importance_clas = pd.read_csv('ML/CSV/Clasificacion/Feature importance Clasificacion.csv')
+    
+    Data = go.Bar(x = df_feature_importance_clas["Columna"],
+                y = df_feature_importance_clas['Feature_importance'],
+                name = 'Feature importance Clasificacion',
+                marker = dict(color = 'red',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_feature_importance_clas["Columna"])
+    layout  = {
+    'xaxis': {'title': 'FEATURE'},
+    'yaxis': {'title': 'FEATURE IMPORTANCE'},
+    'barmode': 'group',
+    'title': 'FEATURE IMPORTANCE CLASIFICACION'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+
+def score_clasificacion_accuracy():
+    df_score_clas_accuracy = pd.read_csv('ML/CSV/Clasificacion/Accuracy modelos clasificacion.csv')
+    
+    Data = go.Bar(x = df_score_clas_accuracy["Modelo"],
+                y = df_score_clas_accuracy['Score Accuracy'],
+                name = 'Accuracy modelos clasificacion',
+                marker = dict(color = 'blue',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_score_clas_accuracy["Modelo"])
+    layout  = {
+    'xaxis': {'title': 'MODELO'},
+    'yaxis': {'title': 'SCORE:ACCURACY'},
+    'barmode': 'group',
+    'title': 'SCORE MODELOS CLASIFICACION ACCURACY'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+def score_clasificacion_recall():
+    df_score_clas_recall = pd.read_csv('ML/CSV/Clasificacion/Recall modelos clasificacion.csv')
+    
+    Data = go.Bar(x = df_score_clas_recall["Modelo"],
+                y = df_score_clas_recall['Score Recall'],
+                name = 'Recall modelos clasificacion',
+                marker = dict(color = 'orange',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_score_clas_recall["Modelo"])
+    layout  = {
+    'xaxis': {'title': 'MODELO'},
+    'yaxis': {'title': 'SCORE:RECALL'},
+    'barmode': 'group',
+    'title': 'SCORE MODELOS CLASIFICACION RECALL'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+def score_clasificacion_precision():
+    df_score_clas_precision = pd.read_csv('ML/CSV/Clasificacion/Precision modelos clasificacion.csv')
+    
+    Data = go.Bar(x = df_score_clas_precision["Modelo"],
+                y = df_score_clas_precision['Score Precision'],
+                name = 'Precision modelos clasificacion',
+                marker = dict(color = 'green',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_score_clas_precision["Modelo"])
+    layout  = {
+    'xaxis': {'title': 'MODELO'},
+    'yaxis': {'title': 'SCORE:PRECISION'},
+    'barmode': 'group',
+    'title': 'SCORE MODELOS CLASIFICACION PRECISION'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+def matrizcorr():
+    img =Image.open("ML/imagen/matriz_corr_original.png")
+    st.image(img,use_column_width="always")
+
+    img =Image.open("ML/imagen/matriz_corr_final.png")
+    st.image(img,use_column_width="always")
+    
+def feature_importance_reg():
+    df_feature_importance_reg = pd.read_csv('ML/CSV/Regresion/Feature importance Regresion.csv')
+    
+    Data = go.Bar(x = df_feature_importance_reg["Columna"],
+                y = df_feature_importance_reg['Feature_importance'],
+                name = 'Feature importance Clasificacion',
+                marker = dict(color = 'red',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_feature_importance_reg["Columna"])
+    layout  = {
+    'xaxis': {'title': 'FEATURE'},
+    'yaxis': {'title': 'FEATURE IMPORTANCE REG'},
+    'barmode': 'group',
+    'title': 'FEATURE IMPORTANCE REGRESSION'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+def score_modelos_reg():
+    df_score_reg = pd.read_csv('ML/CSV/Regresion/Score Regresion.csv')
+    
+    Data = go.Bar(x = df_score_reg["Modelo"],
+                y = df_score_reg['Score R2'],
+                name = 'Precision modelos Regresion',
+                marker = dict(color = 'purple',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_score_reg["Modelo"])
+    layout  = {
+    'xaxis': {'title': 'MODELO'},
+    'yaxis': {'title': 'SCORE R2'},
+    'barmode': 'group',
+    'title': 'SCORE R2 MODELOS REGRESION'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+def juegos_enero_2024():
+    df_prediccion_enero = pd.read_csv('ML/CSV/Regresion/Prediccion enero 2024.csv')
+    
+    Data = go.Bar(x = df_prediccion_enero["Game"],
+                y = df_prediccion_enero['Diferencia Hours Watched (%)'].head(20),
+                name = '% Hours Watched 23-24 ',
+                marker = dict(color = 'black',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_prediccion_enero["Game"])
+    layout  = {
+    'xaxis': {'title': 'Game'},
+    'yaxis': {'title': ' Hours Watched (%)'},
+    'barmode': 'group',
+    'title': '% HOURS WATCHED 23-24'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig 
+def juegos_mas_crecimiento():
+    df_prediccion_final = pd.read_csv('ML/CSV/Regresion/Juegos con mayor crecimiento.csv')
+    
+    Data = go.Bar(x = df_prediccion_final["Game"],
+                y = df_prediccion_final['Diferencia Hours Watched (%)'],
+                name = 'JUEGOS CON MAYOR CRECIMIENTO 23-24 ',
+                marker = dict(color = 'green',
+                line = dict(color='rgb(0,0,0)', width = 1.5)),
+                text = df_prediccion_final["Game"])
+    layout  = {
+    'xaxis': {'title': 'Game'},
+    'yaxis': {'title': ' Hours Watched (%)'},
+    'barmode': 'group',
+    'title': 'JUEGOS CON MAYOR CRECIMIENTO 23-24'
+    }
+
+    fig = go.Figure(data = Data, layout = layout)
+    
+    return fig
+
+def conclusiones(): 
+    with st.expander("JUEGOS MÁS VISUALIZADOS"):
+        st.markdown("Hay un claro patron de repetición de forma general de los juegos en el top10")
+    with st.expander("TIPO DE JUEGOS MÁS VISUALIZADOS"):
+        st.markdown("El tipo 'Shooter' es el favorito con clara ventaja")
+    with st.expander("LA TENDENCIA DE VISUALIZACIONES,¿AUMENTA O DISMINUYE CON LOS AÑOS?¿HA AFECTADO EL COVID A LAS VISUALIZACIONES DE TWITCH?"):
+        st.markdown("Vemos que hay una tendencia de crecimiento cada año, la cual fue mucho más acentuada durante la pandemia por Covid")
+    with st.expander("¿OSCILAN LAS VISUALIZACIONES SEGÚN EL MES DEL AÑO?"):
+        st.markdown("Las visualizaciones se mantienen lineales durante el año exceptuando en el mes de enero que son ligeramente superiores.")
+    with st.expander("¿SERÁ COMPARABLE LA FINAL DE UN E-SPORT CON UN EVENTO DEPORTIVO COMO LA FINAL DEL MUNDIAL DE FUTBOL?"):
+        st.markdown("""Tras realizar este EDA, llego a la conclusión que aunque los picos de audencia solo son medibles por canales de television y no a nivel mundial
+                    (Twitch es también un canal como una televisión),solamente con coger un canal nacional podemos ver que no son comparables AÚN:exclamation: (Hay que verlo dentro de 10 años)""")

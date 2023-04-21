@@ -1,0 +1,8 @@
+,Modelo,Score R2
+0,XGBoost Regresor,0.7848720429142366
+1,Gradient Boost regresor,0.7743660645200054
+2,Arbol de regresion,0.7410622942709442
+3,Linear Regresion con Ridge,0.677866027635692
+4,Linear Regresion con Lasso,0.6755253739515855
+5,Linear Regresion,0.6755242304358041
+6,Linear Regresion con Elastic,0.6288821309937402

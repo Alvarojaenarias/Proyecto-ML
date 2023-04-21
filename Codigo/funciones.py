@@ -3,8 +3,6 @@ import numpy as np
 import streamlit as st
 import json
 from PIL import Image
-import plotly.express as px
-import plotly.graph_objs as go
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 import funciones as ft
+import plotly.graph_objs as go
 
 
 ft.config_page()

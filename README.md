@@ -1,5 +1,5 @@
 # EDA-TWITCH
-![**EDA Visualizaciones de los canales de videojuegos en la plataforma Twitch**](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){width='100px'}"C:\Users\mpila\OneDrive\Escritorio\Bootcamp\Github\Github Alvaro\dsft_ene23. ALVARO\3_Machine_learning\Alvaro\ML\ML\imagen\Readme.jpg"
+![**EDA Visualizaciones de los canales de videojuegos en la plataforma Twitch**]([https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png](https://github.com/Alvarojaenarias/Proyecto-ML/blob/main/Codigo/imagen/Readme.jpg)){width='100px'}
 
 
 *El principal motivo  de esta elección como tema del proyecto EDA de mi Bootcamp como Data Science es debido al aumento en el interés, seguimiento y uso de la plataforma Twitch desde el inicio de la pandemia por COVID-19.*

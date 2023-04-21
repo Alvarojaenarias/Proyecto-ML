@@ -2,8 +2,6 @@ import pandas as pd
 import streamlit as st
 from PIL import Image
 import funciones as ft
-import plotly.express as px
-import plotly.graph_objs as go
 from streamlit_lottie import st_lottie
 import json
 import pandas as pd

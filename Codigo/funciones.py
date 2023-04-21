@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-from streamlit_lottie import st_lottie
 import json
 from PIL import Image
 import plotly.express as px

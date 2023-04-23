@@ -107,7 +107,7 @@ elif menu == 'ML: Prediccion TOP 200 Rank Enero/2024. 1/2 - PRESENCIA':
         st.image(img,use_column_width=False)
     
     img =Image.open("ML/imagen/mario.jpg")    
-    st.image(img,use_column_width=False) 
+    st.image(img,use_column_width="always") 
 elif menu == 'ML: Prediccion TOP 200 Enero/2024. 2/2 - VISUALIZACIONES':
     
     fig_feature_importance_reg = ft.feature_importance_reg()

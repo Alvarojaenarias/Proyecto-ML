@@ -122,7 +122,8 @@ elif menu == 'ML: Prediccion TOP 200 Enero/2024. 2/2 - VISUALIZACIONES':
         st.plotly_chart(fig_feature_importance_reg, use_container_width=True)
     with st.expander("Modelos Regresion:Score R2:dagger_knife:"):
         st.plotly_chart(fig_score_modelos_reg, use_container_width=True)
-        
+    img =Image.open("ML/imagen/arcade.jpg")    
+    st.image(img,use_column_width="always")    
 elif menu == 'ML: Conclusiones predicción': 
     fig_juegos_enero_2024 = ft.juegos_enero_2024()
     fig_juegos_mas_crecimiento = ft.juegos_mas_crecimiento()
@@ -133,6 +134,8 @@ elif menu == 'ML: Conclusiones predicción':
         st.plotly_chart(fig_juegos_enero_2024, use_container_width=True)
     with st.expander("10 juegos con mayor crecimiento Enero2023-Enero2024:dagger_knife:"):
         st.plotly_chart(fig_juegos_mas_crecimiento, use_container_width=True)
+    img =Image.open("ML/imagen/arcade2.jpg")    
+    st.image(img,use_column_width="always")  
 else:
     st.header('Conclusiones Visualizaciones 2016-2022 en Twitch')
     ft.conclusiones()

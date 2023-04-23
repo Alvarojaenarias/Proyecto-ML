@@ -141,6 +141,6 @@ elif menu == 'ML: Conclusiones predicción':
 else:
     st.header('Conclusiones Visualizaciones 2016-2022 en Twitch')
     ft.conclusiones()
-    with open("Codigo/Imagenes/gift 2.json") as source:
+    with open("ML/imagen/gift 2.json") as source:
         animation = json.load(source)
     st_lottie(animation, height=1000, width=1000)

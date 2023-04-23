@@ -2,11 +2,10 @@ import pandas as pd
 import streamlit as st
 from PIL import Image
 import pandas as pd
-import plotly.graph_objs as go
+import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import plotly
 import plotly.express as px
-import plotly.graph_objs as go
 
 
 

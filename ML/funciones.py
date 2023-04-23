@@ -616,6 +616,35 @@ def score_modelos_reg():
     fig = go.Figure(data = Data, layout = layout)
     
     return fig
+def binaria_enero():
+    df_binaria_inicial = pd.read_csv('ML/CSV/Clasificacion/Recuento prediccion 1 y 0 enero 2024.csv')
+    pie1 = df_binaria_inicial['Recuento']
+    labels = df_binaria_inicial['Clas. Binaria']
+         
+    fig = {
+        "data": [
+            {
+        "values": pie1,
+        "labels": labels,
+        "domain": {"x": [0, .5]},
+        "name": "Recuento 0 y 1 dataset Enero 2023",
+        "hoverinfo":"label+name",
+        "hole": .3,
+        "type": "pie"
+        },],
+        "layout": {
+            "title":"",
+            "annotations": [
+                { "font": { "size": 20},
+                "showarrow": False,
+                "text": "Aplicacion modelo clasificacion Enero 2023/2024",
+                "x": 0.7,
+                "y": 1.2
+                },
+            ]
+        }
+    }
+    return fig
 def juegos_enero_2024():
     df_prediccion_enero = pd.read_csv('ML/CSV/Regresion/Prediccion enero 2024.csv')
     
@@ -629,7 +658,7 @@ def juegos_enero_2024():
     'xaxis': {'title': 'Game'},
     'yaxis': {'title': ' Hours Watched (%)'},
     'barmode': 'group',
-    'title': '% HOURS WATCHED 23-24'
+    'title': 'Aplicacion modelo Regresion Enero 2023/2024'
     }
 
     fig = go.Figure(data = Data, layout = layout)

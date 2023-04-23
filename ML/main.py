@@ -35,7 +35,7 @@ elif menu == 'Juegos mas visualizados':
         st.plotly_chart(fig_vistos_2022, use_container_width=True)
     with st.expander("JUEGOS MAS VISUALIZADOS EN 7 AÑOS:trophy:"):
         st.plotly_chart(fig_vistos_total, use_container_width=True)
-    img =Image.open("EDA/imagen/minecraft.jpg")
+    img =Image.open("ML/imagen/minecraft.jpg")
     st.image(img,use_column_width="always")
 elif menu == 'Tipo de juego':
     fig_tipo_juegos = ft.tipo_juegos()
@@ -94,7 +94,8 @@ elif menu == 'ML: Prediccion TOP 200 Rank Enero/2024. 1/2 - PRESENCIA':
                 * AdaBoost\n
                 * Gradient Boost Classifier\n
                 * XGBoost Clasifier\n
-                """)  
+                """) 
+    
     with st.expander("Modelos + Score: Accuracy:dagger_knife:"):
         st.plotly_chart(fig_score_clasificacion_accuracy, use_container_width=True)
     with st.expander("Modelos + Score: Recall:dagger_knife:"):
@@ -104,7 +105,9 @@ elif menu == 'ML: Prediccion TOP 200 Rank Enero/2024. 1/2 - PRESENCIA':
     with st.expander("Mapa de calor de la Matriz: Modelo XGBoost Classifier:dagger_knife:"):
         img =Image.open("ML/imagen/heatmap.png")
         st.image(img,use_column_width=False)
-     
+    
+    img =Image.open("ML/imagen/mario.jpg")    
+    st.image(img,use_column_width=False) 
 elif menu == 'ML: Prediccion TOP 200 Enero/2024. 2/2 - VISUALIZACIONES':
     
     fig_feature_importance_reg = ft.feature_importance_reg()
@@ -123,8 +126,10 @@ elif menu == 'ML: Prediccion TOP 200 Enero/2024. 2/2 - VISUALIZACIONES':
 elif menu == 'ML: Conclusiones predicción': 
     fig_juegos_enero_2024 = ft.juegos_enero_2024()
     fig_juegos_mas_crecimiento = ft.juegos_mas_crecimiento()
-
-    with st.expander("Variacion Hours watched Enero 2023 a enero 2024:dagger_knife:"):
+    fig_binaria_enero = ft.binaria_enero()
+    with st.expander("Aplicacion modelo clasificacion Enero 2023/2024:dagger_knife:"):
+        st.plotly_chart(fig_binaria_enero, use_container_width=True) 
+    with st.expander("Aplicacion modelo Regresion Enero 2023/2024:dagger_knife:"):
         st.plotly_chart(fig_juegos_enero_2024, use_container_width=True)
     with st.expander("10 juegos con mayor crecimiento Enero2023-Enero2024:dagger_knife:"):
         st.plotly_chart(fig_juegos_mas_crecimiento, use_container_width=True)
